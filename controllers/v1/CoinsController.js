@@ -750,15 +750,17 @@ class UsersController extends AppController {
         try {
             console.log("req.body");
             let req_body = req.body;
-            let totalKB = ((parseInt(req_body.from_address_count)*180)+(parseInt(req_body.to_address_count)*34)+10-parseInt(req_body.from_address_count))/1024;
+            let totalKB = ((parseInt(req_body.from_address_count) * 180) + (parseInt(req_body.to_address_count) * 34) + 10 - parseInt(req_body.from_address_count)) / 1024;
             var getFee = await getEstimatedFeeHelper.getFee();
+
+            console.log("getFee", getFee)
 
             return res
                 .status(200)
                 .json({
                     "status": 200,
                     "message": "Litecoin Fees",
-                    "data": {"totalKB":totalKB, "fee": totalKB*getFee.feerate}
+                    "data": { "totalKB": totalKB, "fee": totalKB * getFee.feerate }
                 })
         } catch (error) {
             console.log(error);
