@@ -5,8 +5,6 @@ var app = express();
 
 var CoinsRoute = require("../controllers/v1/CoinsController");
 
-console.log("INSIDE ROUTES", app)
-
 app.get("/api/v1/get-bitcoin-coin-address", CoinsRoute.updateWalletAddress);
 app.post("/api/v1/create-bitcoin-coin-address", CoinsRoute.createUserAddress);
 app.post("/api/v1/send-bitcoin-coin-address", CoinsRoute.userSendFund);
@@ -20,7 +18,6 @@ app.post("/api/v1/get-bitcoin-fees", CoinsRoute.getEstimatedFees);
 
 
 app.use(function (req, res, next) {
-	console.log("next",next)
     var err = new Error('Resource Not Found');
     err.status = 404;
     var resources = {};

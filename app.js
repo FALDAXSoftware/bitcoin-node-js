@@ -69,7 +69,6 @@ var server = http.createServer(app);
 //Routes
 app.use('/', require('./routes'));
 app.use(function (req, res, next) {
-  console.log(next)
   var err = new Error('Resource Not Found');
   err.status = 404;
   var resources = {};

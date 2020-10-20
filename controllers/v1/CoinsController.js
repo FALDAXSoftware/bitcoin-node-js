@@ -748,7 +748,6 @@ class UsersController extends AppController {
 
     async getEstimatedFees(req, res) {
         try {
-            console.log("req.body");
             let req_body = req.body;
             let totalKB = ((parseInt(req_body.from_address_count) * 180) + (parseInt(req_body.to_address_count) * 34) + 10 - parseInt(req_body.from_address_count)) / 1024;
             var getFee = await getEstimatedFeeHelper.getFee();
