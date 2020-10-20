@@ -28,7 +28,16 @@ var sendData = async (sendInfo) => {
             .then(resData => resData.json())
             .then(resData => {
                 console.log(resData)
-                sendedFundStatus = resData.result;
+                if (resData.error) {
+                    sendedFundStatus = {
+                        flag: 1,
+                        status: 500,
+                        message: resData.error.message
+                    }
+                } else {
+                    sendedFundStatus = resData.result;
+                    sendedFundStatus.flag = 0;
+                }
             })
         return sendedFundStatus;
     } catch (error) {

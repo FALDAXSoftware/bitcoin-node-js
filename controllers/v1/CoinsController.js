@@ -59,7 +59,7 @@ class UsersController extends AppController {
                 .query()
                 .first()
                 .where('deleted_at', null)
-                .andWhere('coin', process.env.COIN)
+                .andWhere('coin_code', process.env.COIN)
                 .andWhere('is_active', true)
                 .andWhere('type', 1)
                 .orderBy('id', 'DESC')
@@ -173,8 +173,8 @@ class UsersController extends AppController {
                 .first()
                 // .where('deleted_at', null)
                 .andWhere('coin_code', process.env.COIN)
-                // .andWhere('is_active', true)
-                .andWhere('type', 2)
+                .andWhere('is_active', true)
+                // .andWhere('type', 2)
                 .orderBy('id', 'DESC')
 
             console.log(coinData);
@@ -209,6 +209,15 @@ class UsersController extends AppController {
                         console.log("sendObject", sendObject)
 
                         var userReceiveAddress = await sendHelper.sendData(sendObject);
+
+                        if (userReceiveAddress.flag == 1) {
+                            return res
+                                .status(500)
+                                .json({
+                                    "status": 500,
+                                    "message": userReceiveAddress.message
+                                })
+                        }
                         var getTransactionDetails = await transactionDetailHelper.getTransaction(userReceiveAddress);
                         console.log("getTransactionDetails", getTransactionDetails)
                         if (getTransactionDetails != undefined) {

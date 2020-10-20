@@ -28,8 +28,8 @@
 	"RECORD_INSERTED": "Record is added",
 	"RECORD_DELETED": "Record is deleted",
 	"SERVER_ERROR_CODE": "SERVER_ERROR_CODE",
-	"PRODUCT":"Product ",
-	"OLD_WRONG_PASSWORD":"Current Password is wrong.",
-	"UNABLE_TO_SEND_EMAIL":"Unable to send email. Please contact to administrator.",
-	"NOT_EXIST":"does not exist"
+	"PRODUCT": "Product ",
+	"OLD_WRONG_PASSWORD": "Current Password is wrong.",
+	"UNABLE_TO_SEND_EMAIL": "Unable to send email. Please contact to administrator.",
+	"NOT_EXIST": "does not exist"
 }
