@@ -12,7 +12,7 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
-nodeport: 1337
+nodeport: 3010
 
 configuration:
   pod_directory: /usr/share/nginx/html/conf
@@ -88,7 +88,7 @@ controller:
     targetMemoryUtilizationPercentage: 90
 
 health:
-  enable: true
+  enable: false
   livenessProbe:
     path: /health-check
     port: 1337
