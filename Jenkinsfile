@@ -27,25 +27,14 @@ volumes: [
               imageTag = shortGitCommit
               namespace = getNamespace(myRepo.GIT_BRANCH);
               echo "${myRepo.GIT_BRANCH}"
-              if ( "${myRepo.GIT_BRANCH}" != "master" && namespace ){
-                withAWS(credentials:'jenkins_s3_upload') {
-                  s3Download(file:'.env', bucket:'env.faldax', path:"bitcoin-node-js/${namespace}/.env", force:true)
-                }
-                sh "ls -a"
-                // sh "cat .keyiv >> .env && rm .keyiv"
-                sh "docker build -t ${imageRepo}/bitcoin:${imageTag}  ."
-                sh "docker push  ${imageRepo}/bitcoin:${imageTag}"
-                sh "helm upgrade --install --namespace ${namespace} --set image.tag=${imageTag} bitcoin-node-${namespace}-backend -f chart/values-${namespace}.yaml chart/"
-              }
-              else if (namespace) {
+              if (namespace) {
                   withAWS(credentials:'jenkins_s3_upload') {
                   s3Download(file:'.env', bucket:'env.faldax', path:"bitcoin-node-js/${namespace}/.env", force:true)
                 }
                 sh "ls -a"
-                // sh "cat .keyiv >> .env && rm .keyiv"
                 sh "docker build -t ${imageRepo}/bitcoin:${imageTag}  ."
                 sh "docker push  ${imageRepo}/bitcoin:${imageTag}"
-                sh "helm upgrade --install --namespace ${namespace} --set image.tag=${imageTag} bitcoin-node-${namespace}-backend -f chart-prod/values-${namespace}.yaml chart-prod/"
+                sh "helm upgrade --install --namespace ${namespace} --set image.tag=${imageTag} ${namespace}-bitcoin-backend -f chart/values-${namespace}.yaml chart/"
               }
          }
          }
@@ -56,10 +45,7 @@ volumes: [
 def getNamespace(branch){
     switch(branch){
         case 'master' : return "prod";
-        case 'development' :  return "dev";
         case 'pre-prod' : return "pre-prod";
-        case 'mainnet' : return "mainnet";
-        case 'qa' : return "qa";
         default : return null;
     }
 }
