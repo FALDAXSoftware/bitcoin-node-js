@@ -33,9 +33,9 @@ volumes: [
                 }
                 sh "ls -a"
                 // sh "cat .keyiv >> .env && rm .keyiv"
-                sh "docker build -t ${imageRepo}/backend:${imageTag}  ."
-                sh "docker push  ${imageRepo}/backend:${imageTag}"
-                sh "helm upgrade --install --namespace ${namespace} --set image.tag=${imageTag} ${namespace}-backend -f chart/values-${namespace}.yaml chart/"
+                sh "docker build -t ${imageRepo}/bitcoin:${imageTag}  ."
+                sh "docker push  ${imageRepo}/bitcoin:${imageTag}"
+                sh "helm upgrade --install --namespace ${namespace} --set image.tag=${imageTag} bitcoin-node-${namespace}-backend -f chart/values-${namespace}.yaml chart/"
               }
               else if (namespace) {
                   withAWS(credentials:'jenkins_s3_upload') {
@@ -43,8 +43,8 @@ volumes: [
                 }
                 sh "ls -a"
                 // sh "cat .keyiv >> .env && rm .keyiv"
-                sh "docker build -t ${imageRepo}/backend:${imageTag}  ."
-                sh "docker push  ${imageRepo}/backend:${imageTag}"
+                sh "docker build -t ${imageRepo}/bitcoin:${imageTag}  ."
+                sh "docker push  ${imageRepo}/bitcoin:${imageTag}"
                 sh "helm upgrade --install --namespace ${namespace} --set image.tag=${imageTag} bitcoin-node-${namespace}-backend -f chart-prod/values-${namespace}.yaml chart-prod/"
               }
          }
