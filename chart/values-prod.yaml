@@ -5,14 +5,14 @@
 replicaCount: 1
 
 image:
-  repository: 100.69.158.196/backend
+  repository: 100.69.158.196/bitcoin
   tag: latest
   pullPolicy: Always
 
 nameOverride: ""
 fullnameOverride: ""
 
-nodeport: 1337
+nodeport: 3010
 
 configuration:
   pod_directory: /usr/share/nginx/html/conf
@@ -28,58 +28,31 @@ configuration:
       'sdf
       ')
 
-
 ingress:
   enabled: true
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   path: /
-
   hosts:
-    - api.faldax.com
+    - bitcoin-api.faldax.com
   tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 resources:
   limits:
    cpu: 300m
-   memory: 500Mi
+   memory: 412Mi
   requests:
-   cpu: 300m
-   memory: 500Mi
+   cpu: 200m
+   memory: 256Mi
 
-nodeSelector: {}
-
-tolerations: []
+tolerations: {}
 
 affinity: {}
 
 controller:
   autoscaling:
-    enabled: true
-    minReplicas: 1
-    maxReplicas: 6
-    targetCPUUtilizationPercentage: 80
-    targetMemoryUtilizationPercentage: 90
+    enabled: false
 
 health:
-  enable: true
-  livenessProbe:
-    path: /health-check
-    port: 1337
-    initialDelaySeconds: 120
-    periodSeconds: 30
-    failureThreshold: 5
-    successThreshold: 1
-    timeoutSeconds: 5
-  readinessProbe:
-    path: /health-check
-    port: 1337
-    initialDelaySeconds: 60
-    periodSeconds: 10
-    failureThreshold: 5
-    successThreshold: 1
-    timeoutSeconds: 5
+  enable: false
